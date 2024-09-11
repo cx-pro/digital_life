@@ -4,4 +4,5 @@
     <string name="title_route">Best route</string>
     <string name="location_not_accessible">Due to you rejected this app to access your fine location, we are sorry to say that this function is unavailable.</string>
     <string name="location_not_accessible_btn">Return to Home</string>
+    <string name="loading_route_msg">Fetching the best route...</string>
 </resources>

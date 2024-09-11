@@ -8,28 +8,33 @@ import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.app.ActivityCompat.shouldShowRequestPermissionRationale
 import com.cxpro.digital_life.ui.fragments.route.RouteFragment
 
-fun checkOrGetPermissions(context: Activity, permissions: Array<String>){
-    permissions.forEachIndexed{
-            index,permission ->
-        when {
-            checkSelfPermission(context, permission) == PERMISSION_GRANTED -> {
-            }
-            shouldShowRequestPermissionRationale(context, permission) -> {
-            }
-            else -> requestPermissions(context, arrayOf(permission), index)
-        }
-    }
-}
+class PermissionManager(private val context: Activity){
+    companion object {
 
-fun checkOrGetLocationPermission(context: Activity): Boolean {
-    val permission=ACCESS_FINE_LOCATION
-    when {
-        checkSelfPermission(context, permission) == PERMISSION_GRANTED -> {
-            return true
+        fun checkOrGetPermissions(context: Activity, permissions: Array<String>){
+            permissions.forEachIndexed{
+                    index,permission ->
+                when {
+                    checkSelfPermission(context, permission) == PERMISSION_GRANTED -> {
+                    }
+                    shouldShowRequestPermissionRationale(context, permission) -> {
+                    }
+                    else -> requestPermissions(context, arrayOf(permission), index)
+                }
+            }
         }
-        shouldShowRequestPermissionRationale(context, permission) -> {
+
+        fun checkOrGetLocationPermission(context: Activity): Boolean {
+            val permission=ACCESS_FINE_LOCATION
+            when {
+                checkSelfPermission(context, permission) == PERMISSION_GRANTED -> {
+                    return true
+                }
+                shouldShowRequestPermissionRationale(context, permission) -> {
+                }
+                else -> requestPermissions(context, arrayOf(permission), 0)
+            }
+            return checkSelfPermission(context, permission) == PERMISSION_GRANTED
         }
-        else -> requestPermissions(context, arrayOf(permission), 0)
     }
-    return checkSelfPermission(context, permission) == PERMISSION_GRANTED
 }
